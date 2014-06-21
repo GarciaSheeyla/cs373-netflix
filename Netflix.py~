@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+
+# ------------
+# netflix_read
+# ------------
+import json
+def main () :
+    global average_movie_ratings 
+    average_movie_ratings = {}
+    with open("filepath/rbrooks-movie_average_rating.json", "r") as f:
+      average_movie_ratings = json.load(f)
+     
+    print(average_movie_ratings.keyes())  
+main()

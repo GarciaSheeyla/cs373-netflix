@@ -6,14 +6,16 @@ import json
 # netflix_read
 # ------------
 
-def main () :
+def netflix_read () :
    
      
 
 
-    jsonFile = open(r"/u/mukund/cs373-netflix-tests/', 'r')
+    jsonFile = open(r'/u/sg26793/cs373G/netflix-tests/bryan-customer_cache.json','r')
     customersDict = json.loads(jsonFile.read()) 
     customerRating = (customersDict["6"])
-    
-     
-main()
+    print(customerRating)     
+
+
+
+netflix_read()

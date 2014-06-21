@@ -1,38 +1,49 @@
 #!/usr/bin/env python3
 import sys
 import json
+import math
+
+# ----------------
+# global variables
+# ----------------
+  #sqsum = summation of (actual - prediction)^2
+sqsum = 0
+  #countn = number of square sums computed
+countn = 0
 
 # ------------
-# netflix_read
+# netflix_eval
 # ------------
-
-def netflix_read(r):
-  return r.readline().rstrip("\n")
-
-
 
 def netflix_eval(mid, cid) :
+  global sqsum
+  global countn
+
   return 1  
 
 
-  jsonFile = open(r'/u/sg26793/cs373G/netflix-tests/bryan-customer_cache.json','r')
-  customersDict = json.loads(jsonFile.read()) 
+  customerAvgJson = open(r'/u/sg26793/cs373G/netflix-tests/bryan-customer_cache.json','r')
+  customersDict = json.loads(customerAvgJson.read()) 
   print(customersDict["6"])
-         
+
+  sqsum += (actual - prediction) ** 2
+  countn += 1
   return
 
 
 
-def RMSE():
-  return -1
-
-
+# -------------
+# netflix_solve
+# -------------
 
 def netflix_solve(r,w):
+  global sqsum
+  global countn
+
   customerID = ""
 
   while True :
-    line = netflix_read(r)
+    line = r.readline().rstrip("\n")
 
     if not line : #failed read, done
       break
@@ -52,12 +63,16 @@ def netflix_solve(r,w):
       netflix_write(w, 'p', prediction)
 
   # print(prediction)
-  accuracy = RMSE()
+  accuracy = math.sqrt(sqsum / countn)
 
   netflix_write(w, 'r', accuracy)
   return
  
 
+
+# -------------
+# netflix_write
+# -------------
 
 def netflix_write(w, cflag, data):
   if cflag == 'm' :

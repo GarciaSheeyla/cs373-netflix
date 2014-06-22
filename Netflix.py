@@ -9,7 +9,7 @@ import math
   #sqsum = summation of (actual - prediction)^2
 sqsum = 0
   #countn = number of square sums computed
-countn = 0
+countn = 1
 
 # ------------
 # netflix_eval
@@ -19,16 +19,42 @@ def netflix_eval(mid, cid) :
   global sqsum
   global countn
 
-  return 1  
+   
 
+  #Cache holds the average movie ratings a particular customer gives
 
   customerAvgJson = open(r'/u/sg26793/cs373G/netflix-tests/bryan-customer_cache.json','r')
   customersDict = json.loads(customerAvgJson.read()) 
-  print(customersDict["6"])
+  avgCosRat = customersDict[str(cid)]
 
+
+
+  #Cache holds information about each movie. The keys are the movieIDs and the value is a 3 element list that holds
+  #The average movie rating, standard deviation and the number of ratings given 
+
+  movieInfoJson = open(r'/u/sg26793/cs373G/netflix-tests/frankc-movie_cache.json','r')
+  movieDict = json.loads(movieInfoJson.read())
+  avgStdNumRat = movieDict[str(mid)]
+  movieAvg = avgStdNumRat[0]
+  stdeviation = avgStdNumRat[1]
+  numRat =  avgStdNumRat[2]
+ 
+ 
+
+ #Cache hold the actual ratings for customers in probe.txt
+ # cAnswerProbe = open(r'/u/sg26793/cs373G/netflix-tests/osl62-AnswerCache.json','r')
+ # cAnswerProbeDict = json.loads(cAnswerProbeDict.read())
+ # s =  str(mid) + "-" + str(cid)
+ # rating  = cAnswerProbeDict[str(s)]
+ # print(rating)
+
+
+  prediction =  (avgCosRat + movieAvg) / 2
+  
+  actual  =  3
   sqsum += (actual - prediction) ** 2
   countn += 1
-  return
+  return  prediction
 
 
 
@@ -80,6 +106,7 @@ def netflix_write(w, cflag, data):
   elif cflag == 'p' :
     w.write(str(data) + "\n")
   elif cflag == 'r' :
+   
     w.write("RMSE: " + str(data) + "\n")
   return
 

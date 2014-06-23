@@ -2,25 +2,20 @@
 import sys
 import json
 import math
+from functools import reduce
 
 # ----------------
 # global variables
-# ----------------
-  #sqsum = summation of (actual - prediction)^2
-sqsum = 0
-  #countn = number of square sums computed
-countn = 1
+# -------------
+
+
 
 # ------------
 # netflix_eval
 # ------------
 
 def netflix_eval(mid, cid) :
-  global sqsum
-  global countn
-
-   
-
+  
   #Cache holds the average movie ratings a particular customer gives
 
   customerAvgJson = open(r'/u/sg26793/cs373G/netflix-tests/bryan-customer_cache.json','r')
@@ -50,12 +45,35 @@ def netflix_eval(mid, cid) :
 #  print("cosavg: " + str(avgCosRat))
   
   prediction =  round(( (3 * customersDict[str(cid)])  +( 7 *  avgStdNumRat[0])) * ( .10),2)
+
+
+  global alist
+  alist = []
+  alist.append(actual)
   
  
-  sqsum += (actual - prediction) ** 2
-  countn += 1
+  
   return  prediction
 
+
+
+def rmse_map_sum (a, p) :
+    """
+    O(1) in space
+    O(n) in time
+    """
+    assert(hasattr(a, "__len__"))
+    assert(hasattr(p, "__len__"))
+    assert(hasattr(a, "__iter__"))
+    assert(hasattr(p, "__iter__"))
+    assert(len(a) == len(p))
+    s = len(a)
+    v = sum(map(sqre_diff, a, p))
+    return math.sqrt(v / s)
+
+
+def sqre_diff (x, y) :
+    return (x - y) ** 2
 
 
 # -------------
@@ -81,15 +99,17 @@ def netflix_solve(r,w):
       # print("\nmovie: ", movieID)
     else :
       customerID = line
-
+    plist = []
     if customerID != "" :
       prediction = netflix_eval(movieID, customerID)
       # print("customer: ", customerID)
       # print("prediction: ", prediction)
       netflix_write(w, 'p', prediction)
+       
+      plist.append(prediction)
 
-  # print(prediction)
-  accuracy = math.sqrt(sqsum * (1 / countn))
+
+  accuracy = rmse_map_sum(plist,alist)
 
   netflix_write(w, 'r', accuracy)
   return

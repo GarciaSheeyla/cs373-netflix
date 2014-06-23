@@ -25,7 +25,7 @@ def netflix_eval(mid, cid) :
 
   customerAvgJson = open(r'/u/sg26793/cs373G/netflix-tests/bryan-customer_cache.json','r')
   customersDict = json.loads(customerAvgJson.read()) 
-  avgCosRat = customersDict[str(cid)]
+  #avgCosRat = customersDict[str(cid)]
 
 
 
@@ -35,23 +35,23 @@ def netflix_eval(mid, cid) :
   movieInfoJson = open(r'/u/sg26793/cs373G/netflix-tests/frankc-movie_cache.json','r')
   movieDict = json.loads(movieInfoJson.read())
   avgStdNumRat = movieDict[str(mid)]
-  movieAvg = avgStdNumRat[0]
-  stdeviation = avgStdNumRat[1]
-  numRat =  avgStdNumRat[2]
- 
- 
-
- #Cache hold the actual ratings for customers in probe.txt
- # cAnswerProbe = open(r'/u/sg26793/cs373G/netflix-tests/osl62-AnswerCache.json','r')
- # cAnswerProbeDict = json.loads(cAnswerProbeDict.read())
- # s =  str(mid) + "-" + str(cid)
- # rating  = cAnswerProbeDict[str(s)]
- # print(rating)
-
-
-  prediction =  (avgCosRat + movieAvg) / 2
+#  movieAvg = avgStdNumRat[0]
+#  stdeviation = avgStdNumRat[1]
+ # numRat =  avgStdNumRat[2]
   
-  actual  =  3
+ 
+
+  #Cache hold the actual ratings for customers in probe.txt
+  cAnswerProbe = open(r'/u/sg26793/cs373G/netflix-tests/osl62-AnswerCache.json','r')
+  cAnswerProbeDict = json.loads(cAnswerProbe.read())
+  s =  str(mid) + "-" + str(cid)
+  actual  = cAnswerProbeDict[str(s)]
+#  print("actual:" + str( actual))
+#  print("cosavg: " + str(avgCosRat))
+  
+  prediction =  round(( (3 * customersDict[str(cid)])  +( 7 *  avgStdNumRat[0])) * ( .10),2)
+  
+ 
   sqsum += (actual - prediction) ** 2
   countn += 1
   return  prediction
@@ -89,7 +89,7 @@ def netflix_solve(r,w):
       netflix_write(w, 'p', prediction)
 
   # print(prediction)
-  accuracy = math.sqrt(sqsum / countn)
+  accuracy = math.sqrt(sqsum * (1 / countn))
 
   netflix_write(w, 'r', accuracy)
   return

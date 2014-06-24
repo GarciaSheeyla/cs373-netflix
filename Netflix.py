@@ -54,7 +54,7 @@ def netflix_eval(mid, cid) :
   s =  str(mid) + "-" + str(cid)
   actual  = cAnswerProbeDict[str(s)]
 
-  prediction =  round(( (3 * customersDict[str(cid)])  + ( 7 *  avgStdNumRat[0])) * ( .10), 2)
+  prediction =  round( ((5.25 * avgCosRat)  + (4.75  * movieAvg) )  * .10  , 2) 
 
   alist.append(actual)
   

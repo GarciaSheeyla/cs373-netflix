@@ -8,66 +8,57 @@ import fileinput
 # global variables
 # -------------
 
+global alist
+alist = []
 
+global plist
+plist = []
+
+#Cache holds the average movie ratings a particular customer gives
+customersDict = {}
+with open(r'/u/mukund/netflix-tests/bryan-customer_cache.json', 'r') as file:
+  customersDict = json.load(file)
+
+
+
+
+#Cache holds information about each movie. The keys are the movieIDs and the value is a 3 element list that holds
+#The average movie rating, standard deviation and the number of ratings given
+movieDict  = {}
+with open(r'/u/mukund/netflix-tests/frankc-movie_cache.json','r') as file:
+  movieDict = json.load(file)
+
+
+
+#Cache hold the actual ratings for customers in probe.txt
+#  cAnswerProbe = open(r'/u/mukund/netflix-tests/osl62-AnswerCache.json','r')
+
+cAnswerProbeDict = {}
+with open(r'/u/mukund/netflix-tests/osl62-AnswerCache.json','r') as file:
+  cAnswerProbeDict = json.load(file)
 
 # ------------
 # netflix_eval
 # ------------
 
 def netflix_eval(mid, cid) :
-  """  
-  #Cache holds the average movie ratings a particular customer gives
+  global alist
 
-
-  customersDict = {}
-  with open(r'/u/mukund/netflix-tests/bryan-customer_cache.json', 'r') as file:
-    customersDict = json.load(file)
-  #customerAvgJson = open(r'/u/sg26793/cs373G/netflix-tests/bryan-customer_cache.json','r')
-  #customersDict = json.loads(customerAvgJson.read())'
   avgCosRat = customersDict[str(cid)]
-
-
-
-
-  #Cache holds information about each movie. The keys are the movieIDs and the value is a 3 element list that holds
-  #The average movie rating, standard deviation and the number of ratings given 
-  
-  #movieInfoJson = open(r'/u/mukund/netflix-tests/frankc-movie_cache.json','r')
-
-  movieDict  = {}
-  with open(r'/u/mukund/netflix-tests/frankc-movie_cache.json','r') as file:
-    movieDict = json.load(file)
-  
   avgStdNumRat = movieDict[str(mid)]
 
-#  movieAvg = avgStdNumRat[0]
-#  stdeviation = avgStdNumRat[1]
- # numRat =  avgStdNumRat[2]
-  
- 
+  movieAvg = avgStdNumRat[0]
+  #  stdeviation = avgStdNumRat[1]
+  # numRat =  avgStdNumRat[2]
 
-  #Cache hold the actual ratings for customers in probe.txt
-#  cAnswerProbe = open(r'/u/mukund/netflix-tests/osl62-AnswerCache.json','r')
- 
-  cAnswerProbeDict = {}
-  with open(r'/u/mukund/netflix-tests/osl62-AnswerCache.json','r') as file:
-    cAnswerProbeDict = json.load(file)
   s =  str(mid) + "-" + str(cid)
   actual  = cAnswerProbeDict[str(s)]
-#  print("actual:" + str( actual))
-#  print("cosavg: " + str(avgCosRat))
-  
-#  prediction =  round(( (3 * customersDict[str(cid)])  +( 7 *  avgStdNumRat[0])) * ( .10),2)
-  prediction = 1
 
-#  global alist
-#  alist = []
-#  alist.append(1)
-  """
-    
- 
+  prediction =  round(( (3 * customersDict[str(cid)])  + ( 7 *  avgStdNumRat[0])) * ( .10), 2)
+
+  alist.append(actual)
   
-  return  5
+  return  prediction
 
 
 
@@ -95,49 +86,8 @@ def sqre_diff (x, y) :
 # -------------
 
 def netflix_solve(r,w):
-  global sqsum
-  global countn
-
-
-  #Cache holds the average movie ratings a particular customer gives
-
-
-  customersDict = {}
-  with open(r'/u/mukund/netflix-tests/bryan-customer_cache.json', 'r') as file:
-    customersDict = json.load(file)
-  #customerAvgJson = open(r'/u/sg26793/cs373G/netflix-tests/bryan-customer_cache.json','r')
-  #customersDict = json.loads(customerAvgJson.read())'
- # avgCosRat = customersDict[str(1)]
-
-
-
-
-  #Cache holds information about each movie. The keys are the movieIDs and the value is a 3 element list that holds
-  #The average movie rating, standard deviation and the number of ratings given 
-
-  #movieInfoJson = open(r'/u/mukund/netflix-tests/frankc-movie_cache.json','r')
-
-  movieDict  = {}
-  with open(r'/u/mukund/netflix-tests/frankc-movie_cache.json','r') as file:
-    movieDict = json.load(file)
-
-  #avgStdNumRat = movieDict[str(1)]
-
-#  movieAvg = avgStdNumRat[0]
-#  stdeviation = avgStdNumRat[1]
- # numRat =  avgStdNumRat[2]
-
-
-
-  #Cache hold the actual ratings for customers in probe.txt
-#  cAnswerProbe = open(r'/u/mukund/netflix-tests/osl62-AnswerCache.json','r')
-
-  cAnswerProbeDict = {}
-  with open(r'/u/mukund/netflix-tests/osl62-AnswerCache.json','r') as file:
-    cAnswerProbeDict = json.load(file)
-  #s =  str(mid) + "-" + str(1)
-  #actual  = cAnswerProbeDict[str(1)]
-
+  global plist
+  global alist
     
   for line in fileinput.input():
      line = line.rstrip("\n")
@@ -150,8 +100,10 @@ def netflix_solve(r,w):
      else:
        customerID = line
        prediction  = netflix_eval(movieID,customerID)
-       netflix_write(w, 'p',prediction)
+       plist.append(prediction)
+       netflix_write(w, 'p', prediction)
   
+  netflix_write(w, 'r', rmse_map_sum(alist, plist))
   return
 
 

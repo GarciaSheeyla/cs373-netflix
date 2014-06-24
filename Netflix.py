@@ -2,6 +2,7 @@
 import sys
 import json
 import math
+import time
 from functools import reduce
 
 # ----------------
@@ -17,33 +18,38 @@ from functools import reduce
 def netflix_eval(mid, cid) :
   
   #Cache holds the average movie ratings a particular customer gives
-
-  customerAvgJson = open(r'/u/sg26793/cs373G/netflix-tests/bryan-customer_cache.json','r')
-  customersDict = json.loads(customerAvgJson.read()) 
+  b = time.clock()
+  customerAvgJson = open(r'/u/mukund/netflix-tests/bryan-customer_cache.json','r')
+  customersDict = json.loads(customerAvgJson.read())
+  e = time.clock()
+  print("making customer avg cache time taken: ", e-b) 
   #avgCosRat = customersDict[str(cid)]
 
 
 
   #Cache holds information about each movie. The keys are the movieIDs and the value is a 3 element list that holds
   #The average movie rating, standard deviation and the number of ratings given 
-
-  movieInfoJson = open(r'/u/sg26793/cs373G/netflix-tests/frankc-movie_cache.json','r')
+  b = time.clock()
+  movieInfoJson = open(r'/u/mukund/netflix-tests/frankc-movie_cache.json','r')
   movieDict = json.loads(movieInfoJson.read())
   avgStdNumRat = movieDict[str(mid)]
+  e = time.clock()
+  print("making info cache time taken: ", e-b) 
 #  movieAvg = avgStdNumRat[0]
 #  stdeviation = avgStdNumRat[1]
  # numRat =  avgStdNumRat[2]
   
  
-
+  b = time.clock()
   #Cache hold the actual ratings for customers in probe.txt
-  cAnswerProbe = open(r'/u/sg26793/cs373G/netflix-tests/osl62-AnswerCache.json','r')
+  cAnswerProbe = open(r'/u/mukund/netflix-tests/osl62-AnswerCache.json','r')
   cAnswerProbeDict = json.loads(cAnswerProbe.read())
   s =  str(mid) + "-" + str(cid)
   actual  = cAnswerProbeDict[str(s)]
 #  print("actual:" + str( actual))
 #  print("cosavg: " + str(avgCosRat))
-  
+  e = time.clock()
+  print("opening answers cache time taken: ", e-b) 
   prediction =  round(( (3 * customersDict[str(cid)])  +( 7 *  avgStdNumRat[0])) * ( .10),2)
 
 
@@ -105,7 +111,7 @@ def netflix_solve(r,w):
       # print("customer: ", customerID)
       # print("prediction: ", prediction)
       netflix_write(w, 'p', prediction)
-       
+      
       plist.append(prediction)
 
 
@@ -126,7 +132,6 @@ def netflix_write(w, cflag, data):
   elif cflag == 'p' :
     w.write(str(data) + "\n")
   elif cflag == 'r' :
-   
     w.write("RMSE: " + str(data) + "\n")
   return
 

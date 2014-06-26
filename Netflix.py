@@ -3,7 +3,7 @@ import sys
 import json
 import math
 from functools import reduce
-import fileinput
+
 # ----------------
 # global variables
 # -------------
@@ -128,6 +128,8 @@ def netflix_write(w, cflag, data):
    
     w.write("RMSE: " + str(data) + "\n")
   return
+
+
 
 
 

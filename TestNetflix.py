@@ -25,7 +25,7 @@ class TestNetflix (TestCase) :
     # ----
     # read
     # ----
-
+    """
     def test_rmse_map_sum_1 (self) :
         a = [1, 2, 1]
         p = [2, 1, 2]
@@ -66,31 +66,32 @@ class TestNetflix (TestCase) :
     # write
     # -----
 
-    def test_write_1 (self) :
+    def test_netflix_write_1 (self) :
         w = StringIO()
         netflix_write(w, 'm', 10851)
         self.assertEqual(w.getvalue(), "10851:\n")
 
-    def test_write_2 (self) :
+    def test_netflix_write_2 (self) :
         w = StringIO()
         netflix_write(w, 'p', 3.56)
         self.assertEqual(w.getvalue(), "3.6\n")
 
-    def test_write_3 (self) :
+    def test_netflix_write_3 (self) :
         w = StringIO()
         netflix_write(w, 'r', 1.0031)
         self.assertEqual(w.getvalue(), "RMSE: 1.0031\n")
-    
+    """
     # -----
     # solve
     # -----
-    """
+    
     def test_netflix_solve_1 (self) :
-        w = StringIO()
+        
         r = StringIO("1:\n30878\n2647871\n1283744\n")
+        w = StringI0()
         netflix_solve(r, w)
         self.assertEqual(w.getvalue(),"1:\n3.7\n3.5\n3.7\nRMSE: 0.5085\n" )
-
+    """
     def test_netflix_solve_2 (self) :
         w = StringIO()
         r = StringIO("10:\n1952305\n1531863\n")
@@ -104,7 +105,7 @@ class TestNetflix (TestCase) :
         netflix_solve(r, w)
         self.assertEqual(w.getvalue(), "1000:\n3.5\n3.3\n3.1\n4.2\nRMSE: 0.7476\n")
 
-    """
+    
     # ----
     # eval
     # ----
@@ -115,7 +116,7 @@ class TestNetflix (TestCase) :
          pa = netflix_eval(mid,cid)
          self.assertEqual(pa.getvalue(),3)
 
-    """    
+      
 
     def test_eval_2 (self) :
          mid = 10

@@ -8,12 +8,6 @@ import fileinput
 # global variables
 # -------------
 
-global alist
-alist = []
-
-global plist
-plist = []
-
 #Cache holds the average movie ratings a particular customer gives
 customersDict = {}
 with open(r'/u/mukund/netflix-tests/bryan-customer_cache.json', 'r') as file:
@@ -54,14 +48,9 @@ def netflix_eval(mid, cid) :
   stdeviation = avgStdNumRat[1]
   numRat =  avgStdNumRat[2]
 
-  s =  str(mid) + "-" + str(cid)
-  actual  = cAnswerProbeDict[str(s)]
-
   prediction =  round( (((.521 * avgCosRat)  + (.521  * movieAvg) )  - .14) ,2) 
   # print(actual)
-  assert (actual >= 0 and actual <= 5)
-  alist.append(actual)
-  
+    
   assert (prediction >= 0.0 and prediction <= 5.0)
   return  prediction
 
@@ -91,32 +80,35 @@ def sqre_diff (x, y) :
 # -------------
 
 def netflix_solve(r,w):
-  global plist
-  global alist
+  alist = []
+  plist = []
 
-  for line in fileinput.input():
-     line = line.rstrip("\n")
-     if (line == ""):
-         break
-     if (line[-1] == ':'):
-       movieID = line.rstrip(":")
-       assert (int(movieID) > 0 and int(movieID) <= 17770)
-       netflix_write(w, 'm', movieID)
-        
-     else:
-       customerID = line
-       assert (int(customerID) > 0 and int(customerID) <= 2649429)
-       prediction  = netflix_eval(movieID,customerID)
-       assert (prediction >= 0.0 and prediction <= 5.0)
-       plist.append(prediction)
-       netflix_write(w, 'p', prediction)
-  
-  netflix_write(w, 'r', rmse_map_sum(alist, plist))
+  for line in r :#fileinput.input():
+    line = line.rstrip("\n")
+    if (line == ""):
+      break
+    if (line[-1] == ':'):
+      movieID = line.rstrip(":")
+      assert (int(movieID) > 0 and int(movieID) <= 17770)
+      netflix_write(w, 'm', movieID)
+
+    else:
+      customerID = line
+      assert (int(customerID) > 0 and int(customerID) <= 2649429)
+      prediction  = netflix_eval(movieID,customerID)
+      assert (prediction >= 0.0 and prediction <= 5.0)
+      plist.append(prediction)
+      s =  str(movieID) + "-" + str(customerID)
+      actual  = cAnswerProbeDict[str(s)]
+      assert (actual >= 0 and actual <= 5)
+      alist.append(actual)
+      netflix_write(w, 'p', prediction)
+  # print ("alist", list(alist))
+  # print ("plist", list(plist))
+  checkit = rmse_map_sum(alist, plist)
+  # print ("checkit is ", checkit)
+  netflix_write(w, 'r', checkit)
   return
-
-
-
-
 
 
 

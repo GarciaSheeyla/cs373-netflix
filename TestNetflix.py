@@ -14,6 +14,7 @@ To obtain coverage of the test:
 
 from io       import StringIO
 from unittest import main, TestCase
+import sys
 
 from Netflix import netflix_eval, rmse_map_sum, sqre_diff, netflix_solve, netflix_write
 
@@ -44,7 +45,7 @@ class TestNetflix (TestCase) :
         r = rmse_map_sum(a, p)
         self.assertEqual(r, 2.2546)
 
-    
+
     # ---------
     # sqre_diff
     # ---------
@@ -80,14 +81,15 @@ class TestNetflix (TestCase) :
         w = StringIO()
         netflix_write(w, 'r', 1.0031)
         self.assertEqual(w.getvalue(), "RMSE: 1.0031\n")
-    
+
+
     # -----
     # solve
     # -----
-    """
+
     def test_netflix_solve_1 (self) :
-        w = StringIO()
         r = StringIO("1:\n30878\n2647871\n1283744\n")
+        w = StringIO()
         netflix_solve(r, w)
         self.assertEqual(w.getvalue(),"1:\n3.7\n3.5\n3.7\nRMSE: 0.5085\n" )
 
@@ -95,43 +97,39 @@ class TestNetflix (TestCase) :
         w = StringIO()
         r = StringIO("10:\n1952305\n1531863\n")
         netflix_solve(r, w)     
-        self.assertEqual(w.getvalue(),"10:\n3.3\n3.2\nRMSE: 0.23425\n" )
+        self.assertEqual(w.getvalue(),"10:\n3.3\n3.2\nRMSE: 0.2342\n" )
 
-         
     def test_netflix_solve_3 (self) :
-        W = StringIO()
+        w = StringIO()
         r = StringIO("1000:\n2326571\n977808\n1010534\n1861759")
         netflix_solve(r, w)
         self.assertEqual(w.getvalue(), "1000:\n3.5\n3.3\n3.1\n4.2\nRMSE: 0.7476\n")
-    """
-    
+
     # ----
     # eval
     # ----
     
     def test_eval_1 (self) :
-         mid = 12944
-         cid = 1313436
-         pa = netflix_eval(mid,cid)
-         self.assertEqual(pa,3.56)
+        mid = 12944
+        cid = 1313436
+        pa = netflix_eval(mid,cid)
+        self.assertEqual(pa,3.56)
 
 
 
     def test_eval_2 (self) :
-         mid = 10
-         cid = 1952305
-         pa = netflix_eval(mid,cid)
-         self.assertEqual(pa,3.29)
+        mid = 10
+        cid = 1952305
+        pa = netflix_eval(mid,cid)
+        self.assertEqual(pa,3.29)
 
         
 
     def test_eval_3 (self) :
-         mid = 1000
-         cid = 2326571
-         pa = netflix_eval(mid,cid)
-         self.assertEqual(pa,3.45)
-    
-        
+        mid = 1000
+        cid = 2326571
+        pa = netflix_eval(mid,cid)
+        self.assertEqual(pa,3.45)
 
 # ----
 # main

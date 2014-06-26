@@ -48,14 +48,14 @@ def netflix_eval(mid, cid) :
   avgStdNumRat = movieDict[str(mid)]
 
   movieAvg = avgStdNumRat[0]
-  #  stdeviation = avgStdNumRat[1]
-  # numRat =  avgStdNumRat[2]
+  stdeviation = avgStdNumRat[1]
+  numRat =  avgStdNumRat[2]
 
   s =  str(mid) + "-" + str(cid)
   actual  = cAnswerProbeDict[str(s)]
 
-  prediction =  round( ((.521 * avgCosRat)  + (.521  * movieAvg) )  - .14 , 2) 
-
+  prediction =  round( (((.521 * avgCosRat)  + (.521  * movieAvg) )  - .14) ,2) 
+  print(actual)
   alist.append(actual)
   
   return  prediction
@@ -74,7 +74,7 @@ def rmse_map_sum (a, p) :
     assert(len(a) == len(p))
     s = len(a)
     v = sum(map(sqre_diff, a, p))
-    return math.sqrt(v / s)
+    return round(math.sqrt(v / s),4)
 
 
 def sqre_diff (x, y) :
@@ -109,37 +109,7 @@ def netflix_solve(r,w):
 
 
 
-"""
-  customerID = ""
 
-  while True :
-    line = r.readline().rstrip("\n")
-
-    if not line : #failed read, done
-      break
-
-    if (line[-1] == ':') :
-      movieID = line.rstrip(":")
-      netflix_write(w, 'm', movieID)
-      customerID = ""
-      # print("\nmovie: ", movieID)
-    else :
-      customerID = line
-    plist = []
-    if customerID != "" :
-      prediction = netflix_eval(movieID, customerID)
-      # print("customer: ", customerID)
-      # print("prediction: ", prediction)
-      netflix_write(w, 'p', prediction)
-       
-      plist.append(prediction)
-
-
-  accuracy = rmse_map_sum(plist,alist)
-
-  netflix_write(w, 'r', accuracy)
-  return
- """
 
 
 # -------------
@@ -148,11 +118,11 @@ def netflix_solve(r,w):
 
 def netflix_write(w, cflag, data):
 
-
-
+  
   if cflag == 'm' :
     w.write(str(data) + ":\n")
   elif cflag == 'p' :
+    data  = round(data,1)
     w.write(str(data) + "\n")
   elif cflag == 'r' :
    

@@ -3,7 +3,7 @@ import sys
 import json
 import math
 from functools import reduce
-
+import fileinput
 # ----------------
 # global variables
 # -------------
@@ -44,6 +44,9 @@ with open(r'/u/mukund/netflix-tests/osl62-AnswerCache.json','r') as file:
 def netflix_eval(mid, cid) :
   global alist
 
+  assert (int(cid) > 0 and int(cid) <= 2649429)
+  assert (int(mid) > 0 and int(mid) <= 17770)
+
   avgCosRat = customersDict[str(cid)]
   avgStdNumRat = movieDict[str(mid)]
 
@@ -55,9 +58,11 @@ def netflix_eval(mid, cid) :
   actual  = cAnswerProbeDict[str(s)]
 
   prediction =  round( (((.521 * avgCosRat)  + (.521  * movieAvg) )  - .14) ,2) 
-  print(actual)
+  # print(actual)
+  assert (actual >= 0 and actual <= 5)
   alist.append(actual)
   
+  assert (prediction >= 0.0 and prediction <= 5.0)
   return  prediction
 
 
@@ -88,18 +93,21 @@ def sqre_diff (x, y) :
 def netflix_solve(r,w):
   global plist
   global alist
-    
+
   for line in fileinput.input():
      line = line.rstrip("\n")
      if (line == ""):
          break
      if (line[-1] == ':'):
        movieID = line.rstrip(":")
+       assert (int(movieID) > 0 and int(movieID) <= 17770)
        netflix_write(w, 'm', movieID)
         
      else:
        customerID = line
+       assert (int(customerID) > 0 and int(customerID) <= 2649429)
        prediction  = netflix_eval(movieID,customerID)
+       assert (prediction >= 0.0 and prediction <= 5.0)
        plist.append(prediction)
        netflix_write(w, 'p', prediction)
   
@@ -117,7 +125,8 @@ def netflix_solve(r,w):
 # -------------
 
 def netflix_write(w, cflag, data):
-
+  assert (cflag == 'm' or cflag == 'p' or cflag == 'r')
+  assert (float(data) > 0.0 and float(data) <= 2649429.0)
   
   if cflag == 'm' :
     w.write(str(data) + ":\n")
@@ -128,8 +137,6 @@ def netflix_write(w, cflag, data):
    
     w.write("RMSE: " + str(data) + "\n")
   return
-
-
 
 
 

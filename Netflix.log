@@ -1,0 +1,164 @@
+commit 54fc6783ccd2d555cca9775c069bcb619b6eac40
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Thu Jun 26 15:31:25 2014 -0500
+
+    Created Netflix.html
+
+commit f2e066a22e193f0cdeac38b13f55e1b6f65f929a
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Thu Jun 26 14:10:35 2014 -0500
+
+    Fixed a bug with TestNetflix, unit tests running fine; close issue #2, close issue #16
+
+commit f10e3d60566f3d7b6fe6734cea22a376b62d6e55
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Thu Jun 26 12:16:41 2014 -0500
+
+    Fixed the unit tests for eval, close issue #15; passed 5 other teams' acceptance tests, close issue #4
+
+commit 327e8c94cda856eee0f6800a83bcb10c21f7032d
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Thu Jun 26 11:16:17 2014 -0500
+
+    debugging
+
+commit 7d5d25a67d6dfc4beac702613a576a5ff9ba1ca7
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Thu Jun 26 10:44:44 2014 -0500
+
+    Made more Unit Test
+
+commit 5adb0bca8d282242b6dca3944a5423603936ceab
+Merge: ac7f78e a4083c7
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Wed Jun 25 16:33:31 2014 -0500
+
+    Made the acceptance tests
+
+commit ac7f78eef015221064155ff14e915289ac5ed642
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Wed Jun 25 16:30:44 2014 -0500
+
+    Made the acceptance tests
+
+commit a4083c76e61a0b47056a0ce11a8bdce8dc942268
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Wed Jun 25 09:49:59 2014 -0500
+
+    Fixed issue #14
+
+commit c1235df405034b31260a997e3935a36f9ee1a7c6
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Tue Jun 24 17:56:47 2014 -0500
+
+    Made the first half of the unit tests
+
+commit af6e3cd6d494c3945d9d0d5af4f513e00366fe0a
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Tue Jun 24 17:02:28 2014 -0500
+
+    Fix issue #14
+
+commit 8b53394abba773a50eee7470d34d209922138cc0
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Tue Jun 24 16:19:01 2014 -0500
+
+    fixed issue #3
+
+commit d81d42b49c5fc8191301981f42112b3bdd33b32d
+Merge: a470c8f 18e6379
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Tue Jun 24 15:49:58 2014 -0500
+
+    Fixed issue #13
+
+commit a470c8f87a90463781431a9b6c6463e5ba41e581
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Tue Jun 24 15:48:28 2014 -0500
+
+    Fixed issue #13
+
+commit 18e63797ee6918b15d8aa8df04536dfbc733c2a4
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Tue Jun 24 15:44:05 2014 -0500
+
+    fix issue #12
+
+commit 8852754d817dffb612e1abd106aa424d033a9a62
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Mon Jun 23 14:27:17 2014 -0500
+
+    Changed the implementation of eval to list,created a function for RMSE
+
+commit dfdd7019e73ba96e37f6ff3e4f2f4427137d6824
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Mon Jun 23 13:07:33 2014 -0500
+
+    First implentation of algorithm with subset of Probe data
+
+commit 786ecb37fca65105b9e1ac68f2e38fe1d673e3c0
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Sat Jun 21 23:19:23 2014 -0500
+
+    Cache info is gathered and basic algorithm is written, not using probe data
+
+commit 7718d8f8a0e75fab70308afee130eaa06b44a32c
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Sat Jun 21 17:47:14 2014 -0500
+
+    Implemented solve, implementing skeleton for eval
+
+commit 99dd796ff3e5e89b1fc95c6c831b79e3e6c8dc31
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Sat Jun 21 15:57:25 2014 -0500
+
+    Defined the basic methods in Netflix.py
+
+commit dce2ed7cf2d67189faa4a9cc1844e8226bb58e22
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Sat Jun 21 15:06:23 2014 -0500
+
+    Working with netflix_read()
+
+commit 26712b77511e944cb852af890e61cd779bdb9ec3
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Sat Jun 21 14:58:19 2014 -0500
+
+    Created input file
+
+commit b723490c9629ca59347241e2d992bbb9693030da
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Sat Jun 21 14:16:19 2014 -0500
+
+    Copied over the sample files from the class repo
+
+commit a72067c76ee110d9267b1c703908397f16fdde08
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Sat Jun 21 14:01:53 2014 -0500
+
+    Fix issue #11
+
+commit 1bde24d93001fed9b119b437fbc8859b7503a573
+Merge: 57544b1 6ae3256
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Sat Jun 21 13:31:23 2014 -0500
+
+    Merge branch 'master' of github.com:GarciaSheeyla/cs373-netflix
+
+commit 57544b132ded53cc602db4456fbde643d139df4b
+Author: Sheeyla Garcia <sayla2691@utexas.edu>
+Date:   Sat Jun 21 13:30:40 2014 -0500
+
+    Added empty files
+
+commit 6ae3256b6a7ae9b038766c8ebe5b07165e091257
+Author: Carlos Andres Rodriguez <cyberthug@users.noreply.github.com>
+Date:   Fri Jun 20 12:36:26 2014 -0500
+
+    Created README with the requirements
+
+commit bfb03e5c9ac4efb93e001d32a73ee2226b1ebbab
+Author: Carlos A. Rodriguez <car3564@utexas.edu>
+Date:   Fri Jun 20 12:26:11 2014 -0500
+
+    Initial commit
